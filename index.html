@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Academic Document Formatter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <h1>Academic Document Formatter</h1>
+      <p>Paste your raw student content below and get a clean, formatted academic document.</p>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- INPUT PANEL -->
+      <div class="panel input-panel">
+        <h2>Raw Input</h2>
+
+        <div class="front-page-toggle">
+          <label>
+            <input type="checkbox" id="enableFrontPage" />
+            Include Front Page
+          </label>
+        </div>
+
+        <div id="frontPageFields" class="front-page-fields hidden">
+          <input type="text" id="assignmentNo"   placeholder="Assignment No (e.g. 1)" />
+          <input type="text" id="subjectName"    placeholder="Subject" />
+          <input type="text" id="submittedTo"    placeholder="Submitted To (Teacher Name)" />
+          <input type="text" id="studentName"    placeholder="Submitted By (Student Name)" />
+          <input type="text" id="rollNumber"     placeholder="Roll Number" />
+          <input type="text" id="dateField"      placeholder="Submission Date" />
+        </div>
+
+        <textarea id="rawInput" placeholder="Paste your raw content here...&#10;&#10;Example:&#10;Q1. What is OOP?&#10;OOP stands for Object Oriented Programming...&#10;&#10;Q2. List features of OOP&#10;- Encapsulation&#10;- Inheritance&#10;- Polymorphism"></textarea>
+
+        <!-- Format Guide -->
+        <details class="hint-box">
+          <summary>Format Guide (click to expand)</summary>
+          <div class="hint-content">
+
+            <div class="hint-section">
+              <span class="hint-tag">Headings</span>
+              <code>Q1. Your question here</code>
+              <code>Question 1: Your question</code>
+              <code>## Section Title</code>
+            </div>
+
+            <div class="hint-section">
+              <span class="hint-tag">Bullet List</span>
+              <code>- Item one</code>
+              <code>- Item two</code>
+            </div>
+
+            <div class="hint-section">
+              <span class="hint-tag">Numbered List</span>
+              <code>1. First point</code>
+              <code>2. Second point</code>
+            </div>
+
+            <div class="hint-section">
+              <span class="hint-tag">Field Line</span>
+              <code>Roll Number: FA23-BSE-037</code>
+              <code>Submission Date: 29th March 2026</code>
+            </div>
+
+            <div class="hint-section">
+              <span class="hint-tag">Table</span>
+              <code>Table: Software Engineering Phases</code>
+              <code>Phase  Description  Example</code>
+              <code>Requirement Analysis  Understand needs  Shopping app</code>
+              <code>Design  Plan structure  Create layout</code>
+              <span class="hint-note">Use 2+ spaces between columns. First row = header.</span>
+            </div>
+
+            <div class="hint-section">
+              <span class="hint-tag">Pipe Table</span>
+              <code>| ID | Name | Marks |</code>
+              <code>| 1  | Ali  | 85    |</code>
+            </div>
+
+          </div>
+        </details>
+
+        <button id="formatBtn">Format Document</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+
+      <!-- OUTPUT PANEL -->
+      <div class="panel output-panel">
+        <h2>Formatted Output</h2>
+        <div class="output-actions">
+          <button id="copyHtmlBtn" class="small">Copy HTML</button>
+          <button id="pdfBtn" class="small">Save as PDF</button>
+          <button id="wordBtn" class="small">Save as Word</button>
+        </div>
+        <div class="watermark-toggle">
+          <label>
+            <input type="checkbox" id="enableWatermark" />
+            Add Watermark
+          </label>
+          <input type="text" id="watermarkText" placeholder="Watermark text (e.g. COMSATS)" class="wm-input hidden" />
+        </div>
+        <div id="previewBox">
+          <p class="placeholder-text">Your formatted document will appear here...</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- html-docx-js for Word export -->
+  <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
+  <script src="formatter.js"></script>
+</body>
+</html>

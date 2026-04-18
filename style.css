@@ -1,0 +1,491 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #1a237e;
+  margin-bottom: 6px;
+}
+
+header p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel h2 {
+  font-size: 1.1rem;
+  color: #1a237e;
+  border-bottom: 2px solid #e8eaf6;
+  padding-bottom: 10px;
+}
+
+/* Front page fields */
+.front-page-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.front-page-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.front-page-fields.hidden {
+  display: none;
+}
+
+.front-page-fields input {
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.front-page-fields input:focus {
+  border-color: #3949ab;
+}
+
+/* Format hint box */
+.hint-box {
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+  background: #f5f6ff;
+  font-size: 0.82rem;
+}
+
+.hint-box summary {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #3949ab;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hint-box summary::before {
+  content: '💡';
+}
+
+.hint-box summary::-webkit-details-marker { display: none; }
+
+.hint-content {
+  padding: 10px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #c5cae9;
+}
+
+.hint-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hint-tag {
+  font-weight: 700;
+  color: #1a237e;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.hint-section code {
+  background: #e8eaf6;
+  color: #1a237e;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  display: block;
+  white-space: pre;
+}
+
+.hint-note {
+  color: #888;
+  font-size: 0.76rem;
+  font-style: italic;
+  margin-top: 2px;
+}
+textarea#rawInput {
+  width: 100%;
+  min-height: 320px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border 0.2s;
+}
+
+textarea#rawInput:focus {
+  border-color: #3949ab;
+}
+
+/* Buttons */
+button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+#formatBtn {
+  background: #1a237e;
+  color: #fff;
+}
+
+#formatBtn:hover {
+  background: #283593;
+}
+
+button.secondary {
+  background: #e8eaf6;
+  color: #3949ab;
+}
+
+button.secondary:hover {
+  background: #c5cae9;
+}
+
+button.small {
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  background: #e8eaf6;
+  color: #3949ab;
+}
+
+button.small:hover {
+  background: #c5cae9;
+}
+
+.output-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Preview box */
+#previewBox {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 30px 40px;
+  min-height: 400px;
+  background: #fff;
+  overflow-y: auto;
+  line-height: 1.8;
+}
+
+.placeholder-text {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* ── Formatted document styles inside preview ── */
+#previewBox .doc-front-page {
+  text-align: center;
+  padding: 40px 20px 50px;
+  border-bottom: 3px double #1a237e;
+  margin-bottom: 40px;
+}
+
+#previewBox .doc-front-page .fp-logo {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+
+#previewBox .doc-front-page .fp-university {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+#previewBox .doc-front-page .fp-campus {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+#previewBox .doc-front-page .fp-divider {
+  width: 60%;
+  margin: 0 auto 28px;
+  border-top: 1px solid #ccc;
+}
+
+#previewBox .doc-front-page .fp-fields {
+  text-align: left;
+  display: inline-block;
+  min-width: 320px;
+}
+
+#previewBox .doc-front-page .fp-row {
+  margin-bottom: 18px;
+  display: block;
+  font-size: 12pt;
+  font-family: 'Times New Roman', Times, serif;
+  color: #000;
+}
+
+#previewBox .doc-front-page .fp-label {
+  font-weight: bold;
+  color: #000;
+  font-size: 12pt;
+}
+
+#previewBox .doc-front-page .fp-value {
+  color: #000;
+  font-size: 12pt;
+  font-weight: normal;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* ── Document content: Word-style academic formatting ── */
+#previewBox {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  color: #000;
+  line-height: 1.8;
+}
+
+/* Main title / document heading */
+#previewBox h1 {
+  font-size: 14pt;
+  font-weight: bold;
+  color: #000;
+  margin: 24px 0 10px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Question headings: Q1. / Document2: Code Review */
+#previewBox h2 {
+  font-size: 13pt;
+  font-weight: bold;
+  color: #000;
+  margin: 20px 0 8px;
+  padding-left: 0;
+  border-left: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Sub-headings: Code Walkthrough (...) */
+#previewBox h3 {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #000;
+  margin: 14px 0 6px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#previewBox p {
+  margin-bottom: 10px;
+  color: #000;
+  font-size: 12pt;
+  text-align: justify;
+}
+
+/* Bold label lines like "Roll Number: FA23-BSE-037" */
+#previewBox .field-line {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12pt;
+  color: #000;
+}
+
+#previewBox .field-line strong {
+  font-weight: bold;
+}
+
+#previewBox ul, #previewBox ol {
+  margin: 6px 0 12px 28px;
+}
+
+#previewBox li {
+  margin-bottom: 4px;
+  font-size: 12pt;
+  color: #000;
+}
+
+/* Tables: black border, Word-style */
+#previewBox table {
+  width: 100%;
+  border-collapse: collapse !important;
+  margin: 14px 0 20px;
+  font-size: 11pt;
+  font-family: 'Times New Roman', Times, serif;
+  border: 2px solid #000 !important;
+}
+
+#previewBox table th {
+  background: #fff !important;
+  color: #000 !important;
+  font-weight: bold;
+  padding: 8px 10px;
+  border: 1px solid #000 !important;
+  text-align: left;
+}
+
+#previewBox table td {
+  padding: 8px 10px;
+  border: 1px solid #000 !important;
+  color: #000;
+  vertical-align: top;
+}
+
+#previewBox table tr:nth-child(even) td {
+  background: #fff !important;
+}
+
+/* Watermark toggle */
+.watermark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.watermark-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.wm-input {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  outline: none;
+  width: 200px;
+}
+
+.wm-input.hidden { display: none; }
+
+/* Watermark overlay inside preview */
+#previewBox {
+  position: relative;
+}
+
+.wm-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 72pt;
+  color: rgba(0, 0, 0, 0.07);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 10;
+}
+
+/* Table caption / label above table */
+#previewBox .table-caption {
+  font-weight: bold;
+  font-size: 12pt;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Print styles */
+@media print {
+  .app-container > header,
+  .input-panel,
+  .output-actions,
+  .watermark-toggle {
+    display: none !important;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .output-panel {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+
+  #previewBox {
+    border: none;
+    background: #fff;
+  }
+
+  /* Hide the on-screen overlay during print — CSS watermark handles it */
+  .wm-overlay {
+    display: none !important;
+  }
+}
